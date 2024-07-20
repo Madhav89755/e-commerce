@@ -18,6 +18,17 @@ const OrderModel = sequelize.define(
       },
       allowNull:false
     },
+    status:{
+      type: DataTypes.STRING,
+      defaultValue: "created",
+      validate:{
+        isIn:[["created", "paid", "shipped"]]
+      }
+    },
+    shipping_address:{
+      type: DataTypes.JSON,
+      defaultValue:{}
+    },
     total_amount:{
       type: DataTypes.DECIMAL,
       defaultValue:0,
@@ -28,10 +39,6 @@ const OrderModel = sequelize.define(
     currency: {
       type: DataTypes.STRING,
       defaultValue:"INR"
-    },
-    is_paid:{
-      type: DataTypes.BOOLEAN,
-      defaultValue:false
     },
     paid_on:{
       type: DataTypes.DATE,

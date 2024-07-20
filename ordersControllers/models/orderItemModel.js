@@ -29,14 +29,10 @@ const OrderItemModel = sequelize.define(
     },
     quantity:{
         type: DataTypes.INTEGER,
-        defaultValue:1,
+        defaultValue:0,
         validate:{
             min:0
         }
-    },
-    price:{
-        type: DataTypes.DECIMAL,
-        allowNull: false,
     }
   },
   {}

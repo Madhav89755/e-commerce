@@ -2,9 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const routes = require("./index");
 const sequelize = require("./database");
+const morgan = require('morgan');
 const app = express();
+
 const port = 3000;
 
+// app.use(morgan('dev'))
 app.use("/", routes.router);
 
 app.listen(port, async () => {

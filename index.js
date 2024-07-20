@@ -16,7 +16,7 @@ const orderRoutes=require('./ordersControllers/moduleRoutes')
 // This file contains all the parent routes for this application
 router.use('/', productRoutes);
 router.use('/orders/', orderRoutes);
-router.use('/user/', userRoutes);
+router.use('/', userRoutes);
 
 module.exports = {router, productModels, userModels, orderModels};
 

@@ -17,19 +17,18 @@ async function addProductToList(req, res){
         const name=req.body.product.name
         const description=req.body.product.description
         const price = req.body.product.price
-        const currency = req.body.product.currency
         const stock_count=req.body.product.stock_count
 
         const newProduct = {
             name,
             description,
             price,
-            currency,
             stock_count
         }
 
         const category_id=req.body.category_id
         if (category_id){
+            const id=category_id
             const category=await CategoryModel.findByPk(id)
             if (category){
                 newProduct.category_id=category_id

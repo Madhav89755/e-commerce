@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const userController = require('./users');
+const userListController = require('./userList');
 
 
 const router = express.Router();
 router.use(bodyParser.json());
 
-router.post('/auth/register/', userController.createUser);
-router.post('/auth/login/', userController.loginUser);
+
+router.get('/user-list/', userListController.fetchUserList);
 
 module.exports = router;
