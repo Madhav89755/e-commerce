@@ -24,7 +24,6 @@ async function createUser(req, res) {
   } else {
     try {
       const checkUser = await User.findOne({where:{email}});
-      console.log(req.body);
       if (checkUser===null) {
         const newUser = await User.create({
           full_name,

@@ -11,6 +11,7 @@ module.exports = {
   CATEGORY_CREATED_SUCCESS:"Category Creation Successful",
   CATEGORY_UPDATED_SUCCESS:"Category Updation Successful",
   CATEGORY_DELETED_SUCCESS:"Category Deletion Successful",
+  CATEGORY_DELETED_FAILED_PRODUCT_ASSOCIATION:"Category can't be deleted, it is Associated with Product",
   CATEGORY_NAME_ID_COMPULSORY:"Category Name or ID is compulsory",
 
   ACCESS_DENIED:'Access denied. No token provided.',

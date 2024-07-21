@@ -56,4 +56,12 @@ const UserModel = sequelize.define(
   }
 );
 
+
+// Adding a method to hide the password field when converting to JSON
+UserModel.prototype.toJSON = function () {
+  const values = Object.assign({}, this.get());
+  delete values.password;
+  return values;
+};
+
 module.exports = UserModel;

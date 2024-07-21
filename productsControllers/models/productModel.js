@@ -25,6 +25,7 @@ const ProductModel = sequelize.define(
       references: {
         model: CategoryModel,
         key: "id",
+        onDelete: 'CASCADE'
       },
     },
     price: {

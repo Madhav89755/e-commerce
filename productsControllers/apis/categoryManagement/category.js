@@ -1,6 +1,8 @@
 const message=require('../../../utils/responseMessages')
 const status=require('../../../utils/statusCodes')
 const CategoryModel = require('../../models/categoryModel')
+const ProductModel = require('../../models/productModel')
+
 
 async function addCategory(req, res){
     /* 
@@ -66,18 +68,20 @@ async function deleteCategoryDetail(req, res){
     let resp_status=status.OK
 
     const id=req.params.id
+    const category = await CategoryModel.findByPk(id)
 
-    const category=await CategoryModel.destroy({
-        where: {
-          id: id,
-        },
-    });      
-    
     if (!category){
         resp_body.message=message.CATEGORY_ID_NOT_FOUND
         resp_status=status.NOT_FOUND
     }else{
-        resp_body.message=message.CATEGORY_DELETED_SUCCESS
+        const product = await ProductModel.findAll({where: {category_id:category.id}})
+        if (!product||product.length==0){
+            category.destroy();
+            resp_body.message=message.CATEGORY_DELETED_SUCCESS
+        }else{
+            resp_body.message=message.CATEGORY_DELETED_FAILED_PRODUCT_ASSOCIATION
+            resp_status=status.BAD_REQUEST
+        }
     }
 
     res.status(resp_status).json(resp_body);
