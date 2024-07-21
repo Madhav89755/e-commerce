@@ -17,12 +17,12 @@ const options = {
         url: "https://www.linkedin.com/in/madhav-sharma-448641227/",
       },
     },
-    servers: [
-      {
-        url: "http://localhost:3000",
-        description: "Development server",
-      },
-    ],
+    // servers: [
+    //   {
+    //     url: "http://localhost:3000",
+    //     description: "Development server",
+    //   },
+    // ],
     components: {
       securitySchemes: {
         bearerAuth: {
