@@ -2,6 +2,7 @@ const { DataTypes, Sequelize } = require("sequelize");
 const sequelize = require("../../database");
 const OrderModel = require("./orderModel");
 const ProductModel = require("../../productsControllers/models/productModel");
+const UserModel = require("../../userControllers/models/userModel");
 
 const OrderItemModel = sequelize.define(
   "OrderItem",
@@ -10,6 +11,14 @@ const OrderItemModel = sequelize.define(
       type: DataTypes.UUID,
       primaryKey: true,
       defaultValue: Sequelize.UUIDV4,
+    },
+    user_id:{
+      type: DataTypes.UUID,
+      references:{
+        model: UserModel,
+        key:"user_id"
+      },
+      allowNull:false
     },
     order_id: {
       type: DataTypes.UUID,
@@ -37,5 +46,11 @@ const OrderItemModel = sequelize.define(
   },
   {}
 );
+
+// Define associations
+OrderModel.hasMany(OrderItemModel, { foreignKey: 'order_id' });
+OrderItemModel.belongsTo(OrderModel, { foreignKey: 'order_Id' });
+
+
 
 module.exports = OrderItemModel;
