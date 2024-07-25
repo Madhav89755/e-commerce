@@ -1,4 +1,4 @@
-const { ValidationError, where } = require('sequelize')
+const { Sequelize, Op } = require('sequelize');
 const message=require('../../../utils/responseMessages')
 const status=require('../../../utils/statusCodes')
 const models = require('../../models/index')
@@ -53,7 +53,26 @@ async function fetchProduct(req, res){
     let status_code=status.OK
     const context={}
     try{
-        const product=await ProductModel.findAll()
+        const { name, category_id, min_stock_count } = req.query;
+        const filterOptions = {
+            where: {}
+        };
+        if (name) {
+            filterOptions.where.name = {
+                [Op.like] : `%${name}%`
+            };
+        }        
+        if (category_id) {
+            filterOptions.where.category_id = category_id;
+        }
+        if (min_stock_count) {
+            filterOptions.where.stock_count = {
+              [Sequelize.Op.gte]: parseInt(min_stock_count)
+            };
+        }
+
+        
+        const product=await ProductModel.findAll(filterOptions)
         context.data=product
     }catch(e){
         context.message=e.message;

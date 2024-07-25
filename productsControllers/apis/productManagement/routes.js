@@ -12,6 +12,17 @@ router.use(bodyParser.json());
  *   get:
  *     description: Fetch Product List!
  *     tags: ['Products']
+ *     parameters:
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         description: Filter by exact product name
+ *       - in: query
+ *         name: category_id
+ *         schema:
+ *           type: string
+ *         description: Filter by exact category id
  *     security: []
  *     responses:
  *       200:
