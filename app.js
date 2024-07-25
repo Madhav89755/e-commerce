@@ -6,11 +6,22 @@ const morgan = require("morgan");
 const swagger = require("./swagger");
 const swaggerUi = require("swagger-ui-express");
 const options = require("./swagger");
+const cors = require("cors");
 
 const port = process.env.PORT || 3000;
 const app = express();
 
 require("dotenv").config();
+
+// Define the CORS options
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200,
+  methods: ["GET","HEAD","PUT","PATCH","POST","DELETE"],
+  credentials:true
+};
+
+app.use(cors(corsOptions));
 
 // app.use(morgan('dev'))
 app.use("/", routes);
