@@ -14,6 +14,12 @@ const CategoryModel = sequelize.define(
         type: DataTypes.STRING,
         allowNull: false
       },
+      image_url:{
+        type: DataTypes.STRING,
+        validate:{
+          isUrl: true,
+        }
+      }
     },
     {
       // Other model options go here
