@@ -12,10 +12,7 @@ const CategoryModel = sequelize.define(
       },
       category_name: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate:{
-          len:[5, 50]
-        }
+        allowNull: false
       },
     },
     {
