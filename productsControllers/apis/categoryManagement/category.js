@@ -14,6 +14,7 @@ async function addCategory(req, res){
    
    const newCategory={
        category_name:req.body.name,
+       image:req.body.image_url
     }
     
     if (!newCategory.category_name) {
@@ -96,13 +97,21 @@ async function updateCategoryDetail(req, res){
 
     const id=req.params.id
     const category_name=req.body.category_name
+    const image_url=req.body.image_url
+    const category_data={}
 
     const category=await CategoryModel.findByPk(id)
     if (!category){
         resp_body.message=message.CATEGORY_ID_NOT_FOUND
         resp_status=status.NOT_FOUND
     }else{
-        category.update({category_name:category_name});      
+        if (category_name){
+            category_data.category_name=category_name
+        }
+        if (image_url){
+            category_data.image_url=image_url
+        }
+        category.update(category_data);      
         resp_body.message=message.CATEGORY_UPDATED_SUCCESS
     }
 
