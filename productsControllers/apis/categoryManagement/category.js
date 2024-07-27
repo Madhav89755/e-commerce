@@ -14,7 +14,7 @@ async function addCategory(req, res){
    
    const newCategory={
        category_name:req.body.name,
-       image:req.body.image_url
+       image_url:req.body.image_url
     }
     
     if (!newCategory.category_name) {
