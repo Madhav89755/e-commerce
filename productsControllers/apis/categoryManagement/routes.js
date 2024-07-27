@@ -57,6 +57,10 @@ router.get('/:id', addCategoryController.fetchCategoryDetail);
  *                 type: string
  *                 description: Category's name.
  *                 example: Laptop
+ *               image_url:
+ *                 type: string
+ *                 description: Image to be associated with Category.
+ *                 example: http://google.com/
  *     responses:
  *       200:
  *         description: Returns a Category Detail.
@@ -87,6 +91,10 @@ router.post('/', authenticate_admin, addCategoryController.addCategory);
  *                 type: string
  *                 description: Category's name.
  *                 example: Laptop
+ *               image_url:
+ *                 type: string
+ *                 description: Image to be associated with Category.
+ *                 example: http://google.com/
  *     responses:
  *       200:
  *         description: Returns a Category Detail.
