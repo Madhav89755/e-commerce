@@ -96,7 +96,7 @@ async function updateCategoryDetail(req, res){
     let resp_status=status.OK
 
     const id=req.params.id
-    const category_name=req.body.category_name
+    const category_name=req.body.name
     const image_url=req.body.image_url
     const category_data={}
 
