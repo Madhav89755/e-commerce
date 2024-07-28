@@ -90,7 +90,7 @@ async function deleteCategoryDetail(req, res){
 
 async function updateCategoryDetail(req, res){
     /* 
-    This function is for delete category
+    This function is for update category
     */
     const resp_body={}
     let resp_status=status.OK
