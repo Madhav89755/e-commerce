@@ -110,14 +110,18 @@ async function deleteProduct(req, res){
      */
     let status_code=status.OK
     const resp_body={}
-    const id=req.params.id
-    const product=await ProductModel.destroy({where:{id}})
-    
-    if (!product){
-        resp_body.message=message.PRODUCT_NOT_FOUND
-        status_code=status.NOT_FOUND
-    }else{
-        resp_body.message=message.PRODUCT_DELETED_SUCCESS
+    try{
+        const id=req.params.id
+        const product=await ProductModel.destroy({where:{id}})
+        if (!product){
+            resp_body.message=message.PRODUCT_NOT_FOUND
+            status_code=status.NOT_FOUND
+        }else{
+            resp_body.message=message.PRODUCT_DELETED_SUCCESS
+        }
+    }catch(e){
+        context.message=e.message;
+        status_code=status.BAD_REQUEST
     }
     res.status(status_code).json(resp_body)
 }
@@ -125,16 +129,20 @@ async function deleteProduct(req, res){
 async function updateProductDetails(req, res){
     let status_code = status.OK
     const context={}
-    
-    const id=req.params.id
-    const product=await ProductModel.findByPk(id)
-    if (product===null){
-        resp_body.message=message.PRODUCT_NOT_FOUND
-        status_code=status.NOT_FOUND
-    }else{
-        product.update(req.body)
-        context.data=product
-        context.message=message.PRODUCT_UPDATED_SUCCESS
+    try{
+        const id=req.params.id
+        const product=await ProductModel.findByPk(id)
+        if (product===null){
+            resp_body.message=message.PRODUCT_NOT_FOUND
+            status_code=status.NOT_FOUND
+        }else{
+            product.update(req.body)
+            context.data=product
+            context.message=message.PRODUCT_UPDATED_SUCCESS
+        }
+    }catch(e){
+        context.message=e.message;
+        status_code=status.BAD_REQUEST
     }
     res.status(status_code).json(context)
 }
