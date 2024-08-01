@@ -14,6 +14,22 @@ router.use(bodyParser.json());
  *   get:
  *     description: Fetch Users List!
  *     tags: ['Admin - User']
+ *     parameters:
+ *       - in: query
+ *         name: full_name
+ *         schema:
+ *           type: string
+ *         description: Filter by Full name of user
+ *       - in: query
+ *         name: email
+ *         schema:
+ *           type: string
+ *         description: Filter by exact email
+ *       - in: query
+ *         name: is_admin
+ *         schema:
+ *           type: boolean
+ *         description: Filter the users that are admin
  *     responses:
  *       200:
  *         description: Fetch Users List.
