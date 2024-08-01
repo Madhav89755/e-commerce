@@ -9,9 +9,9 @@ const bcrypt = require("bcrypt");
 const User = models.UserModel;
 
 async function createUser(req, res) {
+  const resp_body = {};
+  let resp_status = status.CREATED;
   try {
-    const resp_body = {};
-    let resp_status = status.CREATED;
     let is_admin = req.body.is_admin;
     const { email, password, full_name } = req.body;
 
@@ -48,10 +48,10 @@ async function createUser(req, res) {
 }
 
 async function loginUser(req, res) {
+  const resp_body = {};
+  let resp_status = status.OK;
   try {
     const { email, password } = req.body;
-    const resp_body = {};
-    let resp_status = status.OK;
 
     if (!email || !password) {
       resp_body.message = messages.EMAIL_PASSWORD_REQUIRED;
