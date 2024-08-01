@@ -120,7 +120,7 @@ async function deleteProduct(req, res){
             resp_body.message=message.PRODUCT_DELETED_SUCCESS
         }
     }catch(e){
-        context.message=e.message;
+        resp_body.message=e.message;
         status_code=status.BAD_REQUEST
     }
     res.status(status_code).json(resp_body)
