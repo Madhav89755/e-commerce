@@ -59,7 +59,7 @@ async function fetchProduct(req, res){
         };
         if (name) {
             filterOptions.where.name = {
-                [Op.like] : `%${name}%`
+                [Op.iLike] : `%${name}%`
             };
         }        
         if (category_id) {
