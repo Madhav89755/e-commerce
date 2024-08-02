@@ -37,6 +37,14 @@ const UserModel = sequelize.define(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    profile:{
+      type:DataTypes.JSON,
+      defaultValue:{}
+    }
   },
   {
     hooks: {
