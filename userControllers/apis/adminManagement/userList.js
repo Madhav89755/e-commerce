@@ -1,6 +1,8 @@
 const models = require("../../models/index");
 const status = require("../../../utils/statusCodes");
-const { Op } = require('sequelize')
+const { Op } = require('sequelize');
+const responseMessages = require("../../../utils/responseMessages");
+const { response } = require("express");
 const User = models.UserModel;
 
 async function fetchUserList(req, res) {
@@ -35,7 +37,43 @@ async function fetchUserList(req, res) {
   res.status(status_code).json(context)
 }
 
+async function updateUserActiveStatus(req, res){
+  const context={}
+  let status_code=status.OK
+  try{
+    const { user_id, action }=req.body
+    const user_obj=await User.findByPk(user_id)
+    if (user_obj){
+      switch (action) {
+        case "activate":
+          user_obj.is_active=true
+          await user_obj.save()
+          context.message=responseMessages.USER_ACTIVATED
+          break;
+        case "deactivate":
+          user_obj.is_active=false
+          await user_obj.save()
+          context.message=responseMessages.USER_DEACTIVATED
+          break;
+          
+        default:
+          context.message=responseMessages.INVALID_CHOICE
+          status_code=status.BAD_REQUEST
+          break;
+      }
+    }
+    else{
+      context.message=responseMessages.USER_NOT_FOUND
+      status_code=status.BAD_REQUEST
+    }
+  } catch (e) {
+    context.message = e.message;
+    status_code = status.BAD_REQUEST
+  }
+  res.status(status_code).json(context)
+}
 
 module.exports = {
-  fetchUserList
+  fetchUserList,
+  updateUserActiveStatus
 };
