@@ -83,8 +83,27 @@ async function loginUser(req, res) {
   res.status(resp_status).json(resp_body);
 }
 
+async function userProfileData(req, res){
+  let status_code=status.OK
+  const context={}
+  try{
+    const user_id=req.params.id
+    const user_obj=await User.findByPk(user_id)
+    if (user_obj){
+      context.user_data=user_obj
+    }else{
+      context.message=messages.USER_NOT_FOUND
+      status_code=status.BAD_REQUEST
+    }
+  } catch (e) {
+    context.message = e.message;
+    status_code = status.BAD_REQUEST
+  }
+  res.status(status_code).json(context)
+}
 
 module.exports = {
   createUser,
-  loginUser
+  loginUser,
+  userProfileData
 };
