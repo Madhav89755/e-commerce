@@ -21,10 +21,15 @@ module.exports = {
   EMAIL_PASSWORD_REQUIRED:"Email and password are required",
   LOGIN_SUCCESSFULL:"Login successful",
   INVALID_CREDENTIALS:"Invalid credentials",
+  INVALID_CHOICE:"Invalid choice",
   
   USER_NOT_FOUND:"User not found",
   USER_NOT_AUTHORIZED:'User not authorized for this operation.',
   USER_ALREADY_EXISTS:"User already exists",
+  USER_ALREADY_ACTIVE:"User account already active",
+  USER_ALREADY_DEACTIVE:"User account already deactive",
+  USER_ACTIVATED:"User account activated",
+  USER_DEACTIVATED:"User account deactivated",
 
   ORDER_CREATED:"Order created successfully",
   ORDER_DELETED:"Order deleted successfully",
