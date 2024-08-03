@@ -44,6 +44,12 @@ const ProductModel = sequelize.define(
         min: 0,
       },
     },
+    image_url:{
+      type: DataTypes.STRING,
+      validate:{
+        isUrl: true,
+      }
+    }
   },
   {
     // Other model options go here

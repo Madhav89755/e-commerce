@@ -112,6 +112,10 @@ router.delete("/:id", authenticate_admin, productListController.deleteProduct);
  *               category_id:
  *                 type: string
  *                 description: Category Id.
+ *               image_url:
+ *                 type: string
+ *                 description: Image Url.
+ *                 example: https://google.com/
  *     responses:
  *       200:
  *         description: Returns a Product Detail.
@@ -158,6 +162,10 @@ router.patch("/:id", authenticate_admin, productListController.updateProductDeta
  *                       type: integer
  *                       description: Product's current stock.
  *                       example: 10
+ *                     image_url:
+ *                       type: string
+ *                       description: Image Url.
+ *                       example: https://google.com/
  *     responses:
  *       200:
  *         description: Returns a Product Detail.

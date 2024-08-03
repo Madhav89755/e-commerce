@@ -18,12 +18,14 @@ async function addProductToList(req, res){
         const description=req.body.product.description
         const price = req.body.product.price
         const stock_count=req.body.product.stock_count
+        const image_url = req.body.product?.image_url || null
 
         const newProduct = {
             name,
             description,
             price,
-            stock_count
+            stock_count,
+            image_url
         }
 
         const category_id=req.body.category_id
