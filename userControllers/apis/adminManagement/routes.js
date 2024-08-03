@@ -39,7 +39,7 @@ router.get('/user/list/', userListController.fetchUserList);
 /**
  * @openapi
  * /admin/user/active-status/:
- *   get:
+ *   post:
  *     description: Fetch Users List!
  *     tags: ['Admin - User']
  *     requestBody:
@@ -57,7 +57,7 @@ router.get('/user/list/', userListController.fetchUserList);
  *                 description: Action to perform values can be either activate or deactivate.
  *     responses:
  *       200:
- *         description: Fetch Users List.
+ *         description: User Active Status Updated .
  */
 router.post('/user/active/status', userListController.updateUserActiveStatus);
 

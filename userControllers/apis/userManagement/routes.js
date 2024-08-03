@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('./users');
-
+const { authenticate } = require('../../../utils/middleware/verifyToken');
 
 const router = express.Router();
 router.use(bodyParser.json());
@@ -64,5 +64,17 @@ router.post('/auth/register/', userController.createUser);
  *         description: User Logged in Success.
 */
 router.post('/auth/login/', userController.loginUser);
+
+/**
+ * @openapi
+ * /user/profile/:
+ *   get:
+ *     description: Fetch the profile details of the logged in user
+ *     tags: ['User Profile']
+ *     responses:
+ *       200:
+ *         description: User Profile data.
+*/
+router.get('/profile/', authenticate, userController.userProfileData);
 
 module.exports = router;

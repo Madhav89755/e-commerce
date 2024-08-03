@@ -87,7 +87,7 @@ async function userProfileData(req, res){
   let status_code=status.OK
   const context={}
   try{
-    const user_id=req.params.id
+    const user_id=req.user.user_id
     const user_obj=await User.findByPk(user_id)
     if (user_obj){
       context.user_data=user_obj
