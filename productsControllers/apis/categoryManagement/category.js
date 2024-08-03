@@ -2,6 +2,7 @@ const message = require('../../../utils/responseMessages')
 const status = require('../../../utils/statusCodes')
 const CategoryModel = require('../../models/categoryModel')
 const ProductModel = require('../../models/productModel')
+const { Op } = require('sequelize');
 
 
 async function addCategory(req, res) {
