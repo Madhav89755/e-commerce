@@ -40,7 +40,16 @@ async function fetchCategoryList(req, res) {
     const resp_body = {}
     let resp_status = status.OK
     try {
-        const category = await CategoryModel.findAll()
+        const { category_name } = req.query;
+        const filterOptions = {
+            where: {}
+        };
+        if (category_name) {
+            filterOptions.where.category_name = {
+                [Op.iLike] : `%${category_name}%`
+            };
+        }
+        const category = await CategoryModel.findAll(filterOptions)
         resp_body.data = category
 
     } catch (e) {

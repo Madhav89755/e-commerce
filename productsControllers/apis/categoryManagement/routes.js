@@ -14,6 +14,12 @@ router.use(bodyParser.json());
  *     description: Fetch Category List!
  *     tags: ['Category']
  *     security: []
+ *     parameters:
+ *       - in: query
+ *         name: category_name
+ *         description: name of the category
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Category List.
