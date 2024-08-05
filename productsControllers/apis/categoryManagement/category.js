@@ -178,7 +178,8 @@ async function parentCategoryList(req, res) {
         }
         resp_body.group_list = await CategoryModel.findAll({ 
             filterOptions,
-            attributes: ['group_name']
+            attributes: ['group_name'],
+            distinct:true
         })
     } catch (e) {
         resp_body.message = e.message
