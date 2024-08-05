@@ -30,6 +30,8 @@ module.exports = {
   USER_ALREADY_DEACTIVE:"User account already deactive",
   USER_ACTIVATED:"User account activated",
   USER_DEACTIVATED:"User account deactivated",
+  PASSWORD_UPDATED_SUCCESS:"Password updated successfully",
+  CURRENT_AND_NEW_PASSWORD_SAME:"Current and New Password cann't be same",
 
   ORDER_CREATED:"Order created successfully",
   ORDER_DELETED:"Order deleted successfully",
