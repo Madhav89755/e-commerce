@@ -44,7 +44,7 @@ async function fetchCategoryList(req, res) {
     const resp_body = {}
     let resp_status = status.OK
     try {
-        const { category_name, group_name } = req.query;
+        const { category_name, group_name, group_by } = req.query;
         const filterOptions = {
             where: {}
         };
@@ -57,6 +57,9 @@ async function fetchCategoryList(req, res) {
             filterOptions.where.group_name = {
                 [Op.iLike]: `%${group_name}%`
             };
+        }
+        if (group_by){
+            filterOptions.group=group_by
         }
         const category = await CategoryModel.findAll(filterOptions)
         resp_body.data = category

@@ -26,6 +26,12 @@ router.use(bodyParser.json());
  *         example: Electronics
  *         schema:
  *           type: string
+ *       - in: query
+ *         name: group_by
+ *         description: name of the attribute to group results by
+ *         example: group_name
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Category List.
