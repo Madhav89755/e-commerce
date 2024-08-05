@@ -16,6 +16,11 @@ router.use(bodyParser.json());
  *     tags: ['Admin - User']
  *     parameters:
  *       - in: query
+ *         name: user_id
+ *         schema:
+ *           type: string
+ *         description: Filter by exact user_id
+ *       - in: query
  *         name: full_name
  *         schema:
  *           type: string

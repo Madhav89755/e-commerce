@@ -9,7 +9,7 @@ async function fetchUserList(req, res) {
   const context = {}
   let status_code = status.OK
   try {
-    const { full_name, email, is_admin } = req.query;
+    const { full_name, email, is_admin, user_id } = req.query;
     const filterOptions = {
       where: {}
     };
@@ -22,6 +22,10 @@ async function fetchUserList(req, res) {
 
     if (email) {
       filterOptions.where.email = email;
+    }
+
+    if (user_id) {
+      filterOptions.where.user_id = user_id;
     }
 
     if (is_admin) {
