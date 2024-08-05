@@ -23,6 +23,29 @@ async function userProfileData(req, res) {
     res.status(status_code).json(context)
 }
 
+async function updateProfileData(req, res) {
+    let status_code = status.OK
+    const context = {}
+    try {
+        const user_id = req.user.user_id
+        const profile = req.body
+        const user_obj = await User.findByPk(user_id)
+        if (user_obj) {
+            user_obj.profile=profile
+            await user_obj.save()
+            context.user_data = user_obj
+            context.message=messages.PROFILE_UPDATED_SUCCESS
+        } else {
+            context.message = messages.USER_NOT_FOUND
+            status_code = status.BAD_REQUEST
+        }
+    } catch (e) {
+        context.message = e.message;
+        status_code = status.BAD_REQUEST
+    }
+    res.status(status_code).json(context)
+}
+
 
 
 async function updatePassword(req, res) {
@@ -61,5 +84,6 @@ async function updatePassword(req, res) {
 
 module.exports = {
     userProfileData,
+    updateProfileData,
     updatePassword
 }

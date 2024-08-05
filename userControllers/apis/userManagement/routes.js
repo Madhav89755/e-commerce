@@ -81,6 +81,35 @@ router.get('/profile/', authenticate, userProfile.userProfileData);
 
 /**
  * @openapi
+ * /user/profile/:
+ *   patch:
+ *     description: Update the profile data of the user's account
+ *     tags: ['User Profile']
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               gender:
+ *                 type: string
+ *                 description: User's Gender either male or female
+ *                 example: male
+ *               dob:
+ *                 type: date
+ *                 description: User's date of birth.
+ *               phone_number:
+ *                 type: string
+ *                 description: User's contact number.
+ *     responses:
+ *       200:
+ *         description: User profile update Success.
+*/
+router.patch('/profile/', authenticate, userProfile.updateProfileData);
+
+/**
+ * @openapi
  * /user/update-password/:
  *   post:
  *     description: Update the password of the account
