@@ -77,4 +77,29 @@ router.post('/auth/login/', userController.loginUser);
 */
 router.get('/profile/', authenticate, userController.userProfileData);
 
+/**
+ * @openapi
+ * /user/auth/update-password/:
+ *   post:
+ *     description: Update the password of the account
+ *     tags: ['Authentication']
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               currentPassword:
+ *                 type: string
+ *                 description: User's current Password.
+ *               newPassword:
+ *                 type: string
+ *                 description: User's new Password.
+ *     responses:
+ *       200:
+ *         description: User password update Success.
+*/
+router.post('/auth/update-password/', authenticate, userController.updatePassword);
+
 module.exports = router;

@@ -63,7 +63,7 @@ async function loginUser(req, res) {
         resp_status = status.NOT_FOUND;
       } else {
         const isMatch = await bcrypt.compare(password, user.password);
-        if (isMatch) {
+        if (isMatch && user.is_active) {
           resp_body.message = messages.LOGIN_SUCCESSFULL;
           resp_body.data = {
             token: jwt.generateToken(user),
@@ -102,8 +102,42 @@ async function userProfileData(req, res){
   res.status(status_code).json(context)
 }
 
+async function updatePassword(req, res){
+  const resp_body = {};
+  let resp_status = status.OK;
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const user_obj=await User.findByPk(req.user.user_id)
+    if (user_obj){
+      const isMatch = await bcrypt.compare(currentPassword, user_obj.password);
+      if (!isMatch){
+        resp_body.message=messages.INVALID_CREDENTIALS
+        resp_status=status.BAD_REQUEST
+      }else{
+        if (currentPassword == newPassword){
+          resp_body.message=messages.CURRENT_AND_NEW_PASSWORD_SAME
+          resp_status=status.BAD_REQUEST
+        }else{
+          user_obj.password=newPassword
+          await user_obj.save()
+          resp_body.message=messages.PASSWORD_UPDATED_SUCCESS
+        }
+      }
+    }else{
+      resp_body.message=messages.USER_NOT_FOUND
+      resp_status=status.BAD_REQUEST
+    }
+  } catch (error) {
+    resp_body.message = error.message;
+    resp_status = status.INTERNAL_SERVER_ERROR;
+  }
+
+  res.status(resp_status).json(resp_body);
+}
+
 module.exports = {
   createUser,
   loginUser,
-  userProfileData
+  userProfileData,
+  updatePassword
 };
