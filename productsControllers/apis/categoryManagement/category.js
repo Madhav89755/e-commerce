@@ -58,11 +58,21 @@ async function fetchCategoryList(req, res) {
                 [Op.iLike]: `%${group_name}%`
             };
         }
+        const categories = await CategoryModel.findAll(filterOptions)
         if (group_by){
-            filterOptions.group=[group_by]
+            const groups={}
+             // Transform the result to group categories by `group_name`
+            const groupedCategories = categories.reduce((acc, category) => {
+                if (!acc[category.group_name]) {
+                    acc[category.group_name] = [];
+                }
+                acc[category.group_name].push(category);
+                return acc;
+            }, {});
+            resp_body.data=groupedCategories
+        }else{
+            resp_body.data = categories
         }
-        const category = await CategoryModel.findAll(filterOptions)
-        resp_body.data = category
 
     } catch (e) {
         resp_body.message = e.message;
@@ -168,9 +178,7 @@ async function parentCategoryList(req, res) {
     let resp_status = status.OK
     try {
         const filterOptions = {
-            where: {
-                [Op.not]:{group_name:null}
-            },
+            where: {},
             attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('group_name')), 'group_name']],
         };
         const categories = await CategoryModel.findAll(filterOptions)
