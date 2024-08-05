@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('./users');
+const userProfile=require('./userProfile')
+
 const { authenticate } = require('../../../utils/middleware/verifyToken');
 
 const router = express.Router();
@@ -75,7 +77,7 @@ router.post('/auth/login/', userController.loginUser);
  *       200:
  *         description: User Profile data.
 */
-router.get('/profile/', authenticate, userController.userProfileData);
+router.get('/profile/', authenticate, userProfile.userProfileData);
 
 /**
  * @openapi
@@ -100,6 +102,6 @@ router.get('/profile/', authenticate, userController.userProfileData);
  *       200:
  *         description: User password update Success.
 */
-router.post('/auth/update-password/', authenticate, userController.updatePassword);
+router.post('/auth/update-password/', authenticate, userProfile.updatePassword);
 
 module.exports = router;
