@@ -10,30 +10,39 @@ async function fetchUserList(req, res) {
   let status_code = status.OK
   try {
     const { full_name, email, is_admin, user_id } = req.query;
-    const filterOptions = {
-      where: {}
-    };
-
-    if (full_name) {
-      filterOptions.where.full_name = {
-        [Op.iLike]: `%${full_name}%`
-      };
-    }
-
-    if (email) {
-      filterOptions.where.email = email;
-    }
-
     if (user_id) {
-      filterOptions.where.user_id = user_id;
+      const user=await User.findByPk(user_id)
+      if (user){
+        context.user=user
+      }else{
+        context.message=responseMessages.USER_NOT_FOUND
+        status_code=status.BAD_REQUEST
+      }
     }
+    else{
 
-    if (is_admin) {
-      filterOptions.where.is_admin=is_admin
+      const filterOptions = {
+        where: {}
+      };
+  
+      if (full_name) {
+        filterOptions.where.full_name = {
+          [Op.iLike]: `%${full_name}%`
+        };
+      }
+  
+      if (email) {
+        filterOptions.where.email = email;
+      }
+  
+  
+      if (is_admin) {
+        filterOptions.where.is_admin=is_admin
+      }
+  
+      const userList = await User.findAll(filterOptions)
+      context.users = userList
     }
-
-    const userList = await User.findAll(filterOptions)
-    context.users = userList
   } catch (e) {
     context.message = e.message;
     status_code = status.BAD_REQUEST
