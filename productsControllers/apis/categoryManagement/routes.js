@@ -20,11 +20,37 @@ router.use(bodyParser.json());
  *         description: name of the category
  *         schema:
  *           type: string
+ *       - in: query
+ *         name: group_name
+ *         description: name of the category parent group
+ *         example: Electronics
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Category List.
  */
 router.get('/', addCategoryController.fetchCategoryList);
+
+/**
+ * @openapi
+ * /category/groups/:
+ *   get:
+ *     description: Fetch Category Groups!
+ *     tags: ['Category']
+ *     security: []
+ *     parameters:
+ *       - in: query
+ *         name: group_name
+ *         description: name of the category parent group
+ *         example: Electronics
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Category Groups List.
+ */
+router.get('/groups', addCategoryController.parentCategoryList);
 
 /**
  * @openapi
@@ -63,6 +89,10 @@ router.get('/:id', addCategoryController.fetchCategoryDetail);
  *                 type: string
  *                 description: Category's name.
  *                 example: Laptop
+ *               group_name:
+ *                 type: string
+ *                 description: Category's Parent Group name.
+ *                 example: Electronics
  *               image_url:
  *                 type: string
  *                 description: Image to be associated with Category.
@@ -70,7 +100,7 @@ router.get('/:id', addCategoryController.fetchCategoryDetail);
  *     responses:
  *       200:
  *         description: Returns a Category Detail.
- */
+*/
 router.post('/', authenticate_admin, addCategoryController.addCategory);
 
 /**
@@ -97,6 +127,10 @@ router.post('/', authenticate_admin, addCategoryController.addCategory);
  *                 type: string
  *                 description: Category's name.
  *                 example: Laptop
+ *               group_name:
+ *                 type: string
+ *                 description: Category's Parent Group name.
+ *                 example: Electronics
  *               image_url:
  *                 type: string
  *                 description: Image to be associated with Category.

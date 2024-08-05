@@ -2,6 +2,7 @@ const message = require('../../../utils/responseMessages')
 const status = require('../../../utils/statusCodes')
 const CategoryModel = require('../../models/categoryModel')
 const ProductModel = require('../../models/productModel')
+const { capitalizeString } = require('./../../../utils/functions')
 const { Op } = require('sequelize');
 
 
@@ -14,10 +15,12 @@ async function addCategory(req, res) {
     let resp_status = status.OK
     try {
         const newCategory = {
-            category_name: req.body.name,
+            category_name: capitalizeString(req.body.name),
             image_url: req.body.image_url
         }
-
+        if (req.body.group_name) {
+            newCategory.group_name = capitalizeString(req.body.group_name)
+        }
         if (!newCategory.category_name) {
             resp_body.message = message.CATEGORY_NAME_NOT_FOUND
             resp_status = status.BAD_REQUEST
@@ -41,13 +44,18 @@ async function fetchCategoryList(req, res) {
     const resp_body = {}
     let resp_status = status.OK
     try {
-        const { category_name } = req.query;
+        const { category_name, group_name } = req.query;
         const filterOptions = {
             where: {}
         };
         if (category_name) {
             filterOptions.where.category_name = {
-                [Op.iLike] : `%${category_name}%`
+                [Op.iLike]: `%${category_name}%`
+            };
+        }
+        if (group_name) {
+            filterOptions.where.group_name = {
+                [Op.iLike]: `%${group_name}%`
             };
         }
         const category = await CategoryModel.findAll(filterOptions)
@@ -125,6 +133,7 @@ async function updateCategoryDetail(req, res) {
         const id = req.params.id
         const category_name = req.body.name
         const image_url = req.body.image_url
+        const group_name = req.body.group_name
         const category_data = {}
 
         const category = await CategoryModel.findByPk(id)
@@ -133,10 +142,13 @@ async function updateCategoryDetail(req, res) {
             resp_status = status.NOT_FOUND
         } else {
             if (category_name) {
-                category_data.category_name = category_name
+                category_data.category_name = capitalizeString(category_name)
             }
             if (image_url) {
                 category_data.image_url = image_url
+            }
+            if (group_name) {
+                category_data.group_name = capitalizeString(group_name)
             }
             category.update(category_data);
             resp_body.message = message.CATEGORY_UPDATED_SUCCESS
@@ -148,6 +160,29 @@ async function updateCategoryDetail(req, res) {
     res.status(resp_status).json(resp_body);
 }
 
+async function parentCategoryList(req, res) {
+    const resp_body = {}
+    let resp_status = status.OK
+    try {
+        const { group_name } = req.query;
+        const filterOptions = {
+            where: {}
+        };
+        if (group_name) {
+            filterOptions.where.group_name = {
+                [Op.iLike]: `%${group_name}%`
+            };
+        }
+        resp_body.group_list = await CategoryModel.findAll({ 
+            where:filterOptions,
+            attributes: ['group_name']
+        })
+    } catch (e) {
+        resp_body.message = e.message
+        resp_status = status.BAD_REQUEST
+    }
+    res.status(resp_status).json(resp_body)
+}
 
 
 module.exports = {
@@ -155,5 +190,6 @@ module.exports = {
     fetchCategoryList,
     fetchCategoryDetail,
     updateCategoryDetail,
-    deleteCategoryDetail
+    deleteCategoryDetail,
+    parentCategoryList
 };

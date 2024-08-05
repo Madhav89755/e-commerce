@@ -14,6 +14,9 @@ const CategoryModel = sequelize.define(
         type: DataTypes.STRING,
         allowNull: false
       },
+      group_name: {
+        type: DataTypes.STRING
+      },
       image_url:{
         type: DataTypes.STRING,
         validate:{
