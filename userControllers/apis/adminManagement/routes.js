@@ -38,7 +38,7 @@ router.get('/user/list/', userListController.fetchUserList);
 
 /**
  * @openapi
- * /admin/user/active-status/:
+ * /admin/user/active/status/:
  *   post:
  *     description: Update User Active Status!
  *     tags: ['Admin - User']
