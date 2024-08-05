@@ -59,7 +59,7 @@ async function fetchCategoryList(req, res) {
             };
         }
         if (group_by){
-            filterOptions.group=group_by
+            filterOptions.group=[group_by]
         }
         const category = await CategoryModel.findAll(filterOptions)
         resp_body.data = category
