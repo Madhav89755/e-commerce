@@ -177,7 +177,7 @@ async function parentCategoryList(req, res) {
             };
         }
         resp_body.group_list = await CategoryModel.findAll({ 
-            where:filterOptions,
+            filterOptions,
             attributes: ['group_name']
         })
     } catch (e) {
