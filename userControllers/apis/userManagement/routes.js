@@ -81,10 +81,10 @@ router.get('/profile/', authenticate, userProfile.userProfileData);
 
 /**
  * @openapi
- * /user/auth/update-password/:
+ * /user/update-password/:
  *   post:
  *     description: Update the password of the account
- *     tags: ['Authentication']
+ *     tags: ['User Profile']
  *     requestBody:
  *       required: true
  *       content:
@@ -102,6 +102,6 @@ router.get('/profile/', authenticate, userProfile.userProfileData);
  *       200:
  *         description: User password update Success.
 */
-router.post('/auth/update-password/', authenticate, userProfile.updatePassword);
+router.post('/update-password/', authenticate, userProfile.updatePassword);
 
 module.exports = router;
