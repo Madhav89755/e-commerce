@@ -3,7 +3,7 @@ const status = require('../../../utils/statusCodes')
 const CategoryModel = require('../../models/categoryModel')
 const ProductModel = require('../../models/productModel')
 const { capitalizeString } = require('./../../../utils/functions')
-const { Op } = require('sequelize');
+const { Sequelize, Op } = require('sequelize');
 
 
 async function addCategory(req, res) {
@@ -170,7 +170,7 @@ async function parentCategoryList(req, res) {
         const { group_name } = req.query;
         const filterOptions = {
             where: {},
-            attributes: [[sequelize.fn('DISTINCT', sequelize.col('group_name')), 'group_name']],
+            attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('group_name')), 'group_name']],
         };
         if (group_name) {
             filterOptions.where.group_name = {
