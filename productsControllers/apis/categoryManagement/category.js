@@ -167,17 +167,14 @@ async function parentCategoryList(req, res) {
     const resp_body = {}
     let resp_status = status.OK
     try {
-        const { group_name } = req.query;
         const filterOptions = {
-            where: {},
+            where: {
+                [Op.not]:{group_name:null}
+            },
             attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('group_name')), 'group_name']],
         };
-        if (group_name) {
-            filterOptions.where.group_name = {
-                [Op.iLike]: `%${group_name}%`
-            };
-        }
-        resp_body.group_list = await CategoryModel.findAll(filterOptions)
+        const categories = await CategoryModel.findAll(filterOptions)
+        resp_body.groups=categories.map(category => category.group_name);
     } catch (e) {
         resp_body.message = e.message
         resp_status = status.BAD_REQUEST

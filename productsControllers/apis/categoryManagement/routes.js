@@ -45,13 +45,6 @@ router.get('/', addCategoryController.fetchCategoryList);
  *     description: Fetch Category Groups!
  *     tags: ['Category']
  *     security: []
- *     parameters:
- *       - in: query
- *         name: group_name
- *         description: name of the category parent group
- *         example: Electronics
- *         schema:
- *           type: string
  *     responses:
  *       200:
  *         description: Category Groups List.
