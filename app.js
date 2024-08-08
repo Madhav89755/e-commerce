@@ -23,7 +23,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// app.use(morgan('dev'))
+app.use(morgan('dev'))
 app.use("/", routes);
 
 app.use(
