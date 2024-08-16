@@ -1,5 +1,6 @@
 # e-commerce
 This is an e-commerce application backend built with Nodejs and ExpressJS.
+This node application is configured to use with PostgreSQL database.
 
 
 # To run the application
