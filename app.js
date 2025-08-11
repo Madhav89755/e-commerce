@@ -17,14 +17,17 @@ require("dotenv").config();
 const corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200,
-  methods: ["GET","HEAD","PUT","PATCH","POST","DELETE"],
-  credentials:true
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+  credentials: true
 };
 
 app.use(cors(corsOptions));
 
 app.use(morgan('dev'))
 app.use("/", routes);
+
+app.use("/", (req, res) => { return res.json({ "message": "This is a message" }) })
+
 
 app.use(
   "/api-docs",
