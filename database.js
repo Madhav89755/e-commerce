@@ -11,6 +11,7 @@ const sequelize = new Sequelize(
     port:process.env.DB_PORT,
     logging:false,
     dialect:"postgres",
+    dialectModule: require('pg'),
     dialectOptions: {
       ssl: {
         require: true,
